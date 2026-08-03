@@ -1,7 +1,5 @@
 package com.denireaux.sticky.model;
 
-import com.denireaux.sticky.model.DrawPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,6 +40,7 @@ public class DrawPanel extends JPanel {
         canvas = newCanvas;
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(canvas, 0, 0, null);

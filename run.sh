@@ -2,14 +2,13 @@
 
 set -e
 
-STICKYJ_JAVA=src/com/denireaux/sticky
 CLASS_DIR=classes/
 OUT_DIR=out/
 
 init-application() {
     echo "Initialize application"
 
-    javac -d out src/com/denireaux/sticky/Sticky.java src/com/denireaux/sticky/utils/Settings.java
+    javac -d out $(find src -name "*.java")
     java -cp out:config com.denireaux.sticky.Sticky
 
     echo "INIT"
@@ -30,4 +29,4 @@ if [ -f Sticky.class ]; then
 else    
     init-application
     teardown
-fi 
+fi
