@@ -45,4 +45,9 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(canvas, 0, 0, null);
     }
+
+    public void mouseDragged(MouseEvent e) {
+        lastX = e.getX();
+        lastX = e.getY();
+    }
 }

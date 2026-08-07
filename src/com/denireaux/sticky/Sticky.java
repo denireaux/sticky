@@ -11,7 +11,6 @@ import java.util.Map;
 public class Sticky {
 
     static Map<String, String> config = Settings.loadConfig("application.properties");
-
     final static int WINDOW_WIDTH = Integer.parseInt(config.get("window.width"));
     final static int WINDOW_HEIGHT = Integer.parseInt(config.get("window.height"));
     final static int FONT_SIZE = Integer.parseInt(config.get("font.size"));
@@ -33,7 +32,6 @@ public class Sticky {
         textArea.setLineWrap(LINE_IS_WRAPPED);
 
         JScrollPane scrollPane = new JScrollPane(textArea);
-
         drawPanel = new DrawPanel();
         drawPanel.setOpaque(false);
         drawPanel.setVisible(false);
@@ -45,7 +43,6 @@ public class Sticky {
         frame.setContentPane(layeredPane);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        // keeping both layers sized to the frame
         frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
                 int w = layeredPane.getWidth();
@@ -56,7 +53,6 @@ public class Sticky {
             }
         });
 
-        // toggling draw/type mode with Ctrl+D
         InputMap im = layeredPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am = layeredPane.getActionMap();
         im.put(KeyStroke.getKeyStroke("control D"), "toggleDraw");
@@ -70,4 +66,9 @@ public class Sticky {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+
+    // private void actionPerformed(ActionEvent e) {
+    //     drawMode = !drawMode;
+    //     drawPanel.setVisible(drawMode);
+    // }
 }
