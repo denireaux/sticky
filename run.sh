@@ -8,6 +8,10 @@ OUT_DIR=out/
 init-application() {
     echo "Initialize application"
 
+    if [ ! -d "saved/" ]; then 
+        mkdir -p saved
+    fi
+
     javac -d out $(find src -name "*.java")
     java -cp out:config com.denireaux.sticky.Sticky
 

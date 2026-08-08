@@ -3,10 +3,15 @@ package com.denireaux.sticky;
 import com.denireaux.sticky.model.DrawPanel;
 import com.denireaux.sticky.utils.Settings;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 public class Sticky {
 
@@ -55,6 +60,7 @@ public class Sticky {
 
         InputMap im = layeredPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am = layeredPane.getActionMap();
+
         im.put(KeyStroke.getKeyStroke("control D"), "toggleDraw");
         am.put("toggleDraw", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
@@ -63,12 +69,57 @@ public class Sticky {
             }
         });
 
+        im.put(KeyStroke.getKeyStroke("control S"), "toggleSave");
+        am.put("toggleSave", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    saveStateToPng(layeredPane, "out.png");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        String testfileName = buildFileName("out/", "drawing");
+        System.out.println(testfileName);
     }
 
-    // private void actionPerformed(ActionEvent e) {
-    //     drawMode = !drawMode;
-    //     drawPanel.setVisible(drawMode);
-    // }
+    public static void saveStateToPng(JLayeredPane layeredPane, String filename) throws IOException {
+        int width = layeredPane.getWidth();
+        int height = layeredPane.getHeight();
+
+        if (width <= 0 || height <= 0) {
+            return;
+        }
+
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = bufferedImage.createGraphics();
+
+        try {
+            layeredPane.paint(g2d);
+        } finally {
+            g2d.dispose();
+        }
+
+        String fileName = buildFileName("saved/", "drawing");
+
+        ImageIO.write(bufferedImage, "png", new File(fileName));
+    }
+
+    public static String buildFileName(String outDirectory, String prefix) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String localDateTimeAsString = localDateTime.toString();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(outDirectory);
+        stringBuilder.append(prefix);
+        stringBuilder.append("_");
+        stringBuilder.append(localDateTimeAsString);
+        stringBuilder.append(".png");
+
+        return stringBuilder.toString();
+    }
 }
