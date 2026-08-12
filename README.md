@@ -21,6 +21,7 @@ alias sticky="bash /home/user/sticky/run.sh"
 
 - Type normally — plain text, indentation preserved on paste
 - `Ctrl+D` — toggle drawing mode (black pen, freehand)
+- `Ctrl+s` - saves the current state of the notepad to the "saved/" directory
 
 ## Config
 
