@@ -4,12 +4,9 @@ import com.denireaux.sticky.model.DrawPanel;
 import com.denireaux.sticky.utils.Settings;
 import com.denireaux.sticky.utils.FileUtils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -73,7 +70,7 @@ public class Sticky {
         am.put("toggleSave", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    saveStateToPng(layeredPane, "out.png");
+                    FileUtils.saveStateToPng(layeredPane, "out.png");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -82,27 +79,5 @@ public class Sticky {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-    }
-
-    public static void saveStateToPng(JLayeredPane layeredPane, String filename) throws IOException {
-        int width = layeredPane.getWidth();
-        int height = layeredPane.getHeight();
-
-        if (width <= 0 || height <= 0) {
-            return;
-        }
-
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = bufferedImage.createGraphics();
-
-        try {
-            layeredPane.paint(g2d);
-        } finally {
-            g2d.dispose();
-        }
-
-        String fileName = FileUtils.buildFileName("saved/", "drawing");
-
-        ImageIO.write(bufferedImage, "png", new File(fileName));
     }
 }
