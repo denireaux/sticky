@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.time.LocalDateTime;
 
 public class Sticky {
 
@@ -71,7 +70,6 @@ public class Sticky {
         });
 
         im.put(KeyStroke.getKeyStroke("control S"), "toggleSave");
-
         am.put("toggleSave", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 try {
