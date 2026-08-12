@@ -2,6 +2,7 @@ package com.denireaux.sticky;
 
 import com.denireaux.sticky.model.DrawPanel;
 import com.denireaux.sticky.utils.Settings;
+import com.denireaux.sticky.utils.FileUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -70,6 +71,7 @@ public class Sticky {
         });
 
         im.put(KeyStroke.getKeyStroke("control S"), "toggleSave");
+
         am.put("toggleSave", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -82,9 +84,6 @@ public class Sticky {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-        String testfileName = buildFileName("out/", "drawing");
-        System.out.println(testfileName);
     }
 
     public static void saveStateToPng(JLayeredPane layeredPane, String filename) throws IOException {
@@ -104,22 +103,8 @@ public class Sticky {
             g2d.dispose();
         }
 
-        String fileName = buildFileName("saved/", "drawing");
+        String fileName = FileUtils.buildFileName("saved/", "drawing");
 
         ImageIO.write(bufferedImage, "png", new File(fileName));
-    }
-
-    public static String buildFileName(String outDirectory, String prefix) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        String localDateTimeAsString = localDateTime.toString();
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(outDirectory);
-        stringBuilder.append(prefix);
-        stringBuilder.append("_");
-        stringBuilder.append(localDateTimeAsString);
-        stringBuilder.append(".png");
-
-        return stringBuilder.toString();
     }
 }

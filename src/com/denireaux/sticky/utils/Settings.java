@@ -30,9 +30,9 @@ public class Settings {
         return configMap;
     }
 
-    public static void main(String[] args) {
-        Map<String, String> settings = loadConfig("application.properties");
-        System.out.println(settings.values());
-    }
+    // public static void main(String[] args) {
+    //     Map<String, String> settings = loadConfig("application.properties");
+    //     System.out.println(settings.values());
+    // }
    
 }
