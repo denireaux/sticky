@@ -1,0 +1,9 @@
+services:
+  sticky:
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    ipc: host
+    
