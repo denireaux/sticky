@@ -77,6 +77,13 @@ public class Sticky {
             }
         });
 
+        im.put(KeyStroke.getKeyStroke("control Q"), "toggleQuit");
+        am.put("toggleQuit", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
