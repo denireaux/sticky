@@ -27,6 +27,13 @@ public class Sticky {
     public static void main(String[] args) {
         JFrame frame = new JFrame(WINDOW_TITLE);
 
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu file = new JMenu("File");
+        file.add(new JMenuItem("File"));
+        
+        menuBar.add(file);
+
         JTextArea textArea = new JTextArea();
         textArea.setFont(new Font(FONT_FAMILY, Font.BOLD, FONT_SIZE));
         textArea.setBackground(new Color(255, 255, 240));
