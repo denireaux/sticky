@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Sticky {
 
@@ -24,15 +25,15 @@ public class Sticky {
     static DrawPanel drawPanel;
     static boolean drawMode = false;
 
+    final static Logger log = Logger.getLogger(Sticky.class.getName());
+
     public static void main(String[] args) {
         JFrame frame = new JFrame(WINDOW_TITLE);
-
         JMenuBar menuBar = new JMenuBar();
-
         JMenu file = new JMenu("File");
-        file.add(new JMenuItem("File"));
-        
         menuBar.add(file);
+
+        log.info("Menu bar added to the toolbar");
 
         JTextArea textArea = new JTextArea();
         textArea.setFont(new Font(FONT_FAMILY, Font.BOLD, FONT_SIZE));
@@ -77,13 +78,27 @@ public class Sticky {
         am.put("toggleSave", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    FileUtils.saveStateToPng(layeredPane, "out.png");
+                    FileUtils.saveStateToPng(layeredPane);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
         });
 
+        Action saveAction = new AbstractAction("Save") {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FileUtils.saveStateToPng(layeredPane);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        saveAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));
+
+        file.add(new JMenuItem(saveAction));
+
+        frame.setJMenuBar(menuBar);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }

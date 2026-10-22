@@ -20,9 +20,7 @@ init-application() {
 
 teardown() {
     echo "Teardown application"
-    
     rm -rf ${OUT_DIR}/*
-
     echo "TEARDOWN"
 }
 
